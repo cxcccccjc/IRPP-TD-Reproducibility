@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-08-10T00:00:00+08:00",
+  "purpose": "IRPP-TD RQ5 matched-workload protocol evaluation",
+  "host": {
+    "os": "Windows 11 Pro",
+    "version": "10.0.22631",
+    "build": 22631,
+    "cpu": "AMD Ryzen 9 9955HX",
+    "physical_cores": 16,
+    "logical_processors": 32,
+    "ram_gib": 31.19
+  },
+  "wsl": {
+    "generation": 2,
+    "runtime_version": "2.7.11.0",
+    "kernel_version": "6.18.33.2-microsoft-standard-WSL2",
+    "distro_name": "Ubuntu-22.04",
+    "guest_os": "Ubuntu 22.04.5 LTS",
+    "architecture": "x86_64",
+    "processors": 8,
+    "memory_gib": 16,
+    "swap_gib": 8,
+    "linux_install_root": "/opt/irpp-rq5"
+  },
+  "blockchain": {
+    "implementation": "FISCO BCOS",
+    "node_version": "v3.7.3",
+    "architecture": "Air",
+    "vm": "EVM",
+    "consensus": "PBFT",
+    "chain_id": "chain0",
+    "group_id": "group0",
+    "node_count": 4,
+    "listen_ip": "127.0.0.1",
+    "p2p_start_port": 30300,
+    "rpc_start_port": 20200,
+    "transport": "TLS",
+    "sm_crypto": false
+  },
+  "client": {
+    "console_version": "v3.7.0",
+    "java_sdk_version": "v3.7.0",
+    "java_runtime": "OpenJDK 11",
+    "load_generator_placement": "separate client process in the same WSL2 guest"
+  },
+  "environment_tools": {
+    "parallel_downloader": "aria2 1.36.0",
+    "build_system": "CMake 3.22.1",
+    "python": "3.10.12",
+    "maven": "3.6.3"
+  },
+  "assets": [
+    {
+      "name": "build_chain_v3.7.3.sh",
+      "url": "https://github.com/FISCO-BCOS/FISCO-BCOS/releases/download/v3.7.3/build_chain.sh",
+      "sha256": "18A1000A987D2222D8E857D84029ED914BCB78E96D78F8B2D2C408D86C0E05B9",
+      "size_bytes": 94157
+    },
+    {
+      "name": "fisco-bcos-linux-x86_64_v3.7.3.tar.gz",
+      "url": "https://github.com/FISCO-BCOS/FISCO-BCOS/releases/download/v3.7.3/fisco-bcos-linux-x86_64.tar.gz",
+      "github_asset_id": 175171150,
+      "sha256": "B2B0121722A612DED5CCF4209BF88D12F224F4EBC75A5F2D9BAFEAC898B27D89",
+      "expected_size_bytes": 30233449
+    },
+    {
+      "name": "console_v3.7.0.tar.gz",
+      "url": "https://github.com/FISCO-BCOS/console/releases/download/v3.7.0/console.tar.gz",
+      "github_asset_id": 163477054,
+      "sha256": "F82DB3F99E64E2EAFEFE6586D970FE12E0DE47ED810BC78D41432587F88EDF0C",
+      "expected_size_bytes": 151640115
+    },
+    {
+      "name": "tassl-1.1.1b-linux-x86_64.tar.gz",
+      "url": "https://github.com/FISCO-BCOS/TASSL/releases/download/V_1.4/tassl-1.1.1b-linux-x86_64.tar.gz",
+      "github_asset_id": 197923515,
+      "sha256": "97700126DF491B4AE15AFAE1BAD99979390DED5D7D1655632E00B40003A9A9E8",
+      "expected_size_bytes": 1780655
+    }
+  ],
+  "measurement_policy": {
+    "warmup_required": true,
+    "minimum_measured_runs": 30,
+    "summary_statistics": ["median", "p95", "95% confidence interval"],
+    "latency_views": ["active latency", "final latency"],
+    "chain_metrics_for_non_blockchain_protocols": "N/A"
+  }
+}

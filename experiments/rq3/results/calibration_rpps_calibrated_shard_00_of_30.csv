@@ -1,0 +1,4 @@
+method,scene,target_workers,seed,calibration_tasks,target_acceptance,gate_threshold,clean_acceptance,clean_retained,clean_total
+RPPS-TDC,Climate,27,20260808,20,0.96,0.8986000000000001,0.9601449275362319,530,552
+RPPS-TDC,Traffic,27,20260808,20,0.96,0.9168000000000001,0.9606164383561644,561,584
+RPPS-TDC,Water,27,20260808,20,0.96,2.3832499999999985,0.9600840336134454,457,476

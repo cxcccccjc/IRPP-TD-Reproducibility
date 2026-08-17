@@ -1,0 +1,7 @@
+sweep,value,n,method,runtime_median_s,runtime_p95_s,pair_evaluations,censored
+dimension,2,200,Full IRPP,0.009642350000000001,0.009712165,21000,False
+dimension,9,200,Full IRPP,0.009640800000000001,0.009726655,21000,False
+dimension,36,200,Full IRPP,0.01008615,0.010157005,21000,False
+delta_max,3,400,RABOD,0.0173476,0.01747874,1200,False
+delta_max,20,400,RABOD,0.0201267,0.020289775000000003,76000,False
+delta_max,80,400,RABOD,0.02032555,0.02037809,76000,False

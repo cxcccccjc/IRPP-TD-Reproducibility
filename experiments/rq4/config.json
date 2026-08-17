@@ -1,0 +1,52 @@
+{
+  "workload_root": "../../data/workloads",
+  "data_files": {
+    "Climate_n27": "Scene_1_Number_of_Workers_27.json",
+    "Climate_n39": "Scene_1_Number_of_Workers_39.json",
+    "Traffic_n27": "Scene_2_Number_of_Workers_27.json",
+    "Traffic_n39": "Scene_2_Number_of_Workers_39.json",
+    "Water_n27": "Scene_3_Number_of_Workers_27.json",
+    "Water_n39": "Scene_3_Number_of_Workers_39.json"
+  },
+  "calibration_tasks": 20,
+  "test_tasks": [21, 100],
+  "random_seeds": [20260808, 20260809, 20260810, 20260811, 20260812, 20260813, 20260814, 20260815, 20260816, 20260817, 20260818, 20260819, 20260820, 20260821, 20260822, 20260823, 20260824, 20260825, 20260826, 20260827, 20260828, 20260829, 20260830, 20260831, 20260832, 20260833, 20260834, 20260835, 20260836, 20260837],
+  "bootstrap_repetitions": 2000,
+  "parameters": {
+    "zeta": 0.25,
+    "theta": 0.35,
+    "mu1": 0.0582258516167486,
+    "mu2": 0.001722719501825485,
+    "e_b": 5,
+    "q_b": 2,
+    "n_b": 5,
+    "s_0": 5,
+    "delta_max": 20,
+    "epsilon_d": 1e-12,
+    "epsilon_w": 1e-12,
+    "epsilon": 1e-5,
+    "max_iterations": 50,
+    "tv_samples": 1024
+  },
+  "exact_abod_calibration": {
+    "mu1": 0.06275765909354387,
+    "mu2": 0.02172680359646379,
+    "source": "../RQ2_ColdStart_ABOD_Experiment_20260810/results/exact_abod_calibration.json"
+  },
+  "angular_caps": [3, 4, 5, 6, 7, 20],
+  "stopping_epsilons": [0.001, 0.00001, 1e-7, 1e-9, 1e-12],
+  "stopping_caps": [2, 3, 5, 10, 50],
+  "stopping_reference": {"epsilon": 1e-12, "max_iterations": 200},
+  "scaling_n": [20, 50, 100, 200, 400, 800, 1600, 3200, 6400, 10000],
+  "scaling_dimension": 9,
+  "scaling_anchor_ratio": 0.7,
+  "timing_warmups": 5,
+  "timing_min_repeats": 30,
+  "timing_min_seconds": 0.5,
+  "exact_configuration_limit_seconds": 120.0,
+  "stability_trials": 1000,
+  "stability_tau": [0.001, 1e-6, 1e-9, 1e-12, 1e-50, 1e-150, 0.0],
+  "dimension_sweep": [2, 3, 5, 9, 18, 36, 72],
+  "delta_sweep": [3, 5, 10, 20, 40, 80],
+  "applicability_trials": 1000
+}

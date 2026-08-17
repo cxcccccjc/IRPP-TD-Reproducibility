@@ -1,0 +1,34 @@
+{
+  "timestamp": "2026-08-10T22:03:37+08:00",
+  "guest": {
+    "os": "Ubuntu 22.04.5 LTS",
+    "kernel": "6.18.33.2-microsoft-standard-WSL2",
+    "architecture": "x86_64"
+  },
+  "resources": {
+    "cpu_model": "AMD Ryzen 9 9955HX 16-Core Processor",
+    "logical_processors_visible": 8,
+    "memory_kib": 16377464
+  },
+  "software": {
+    "fisco_bcos": "FISCO BCOS Version : 3.7.3",
+    "console": "v3.7.0",
+    "java_sdk": "v3.7.0",
+    "java": "openjdk version \"11.0.31\" 2026-04-21",
+    "maven": "Apache Maven 3.6.3",
+    "openssl": "OpenSSL 3.0.2 15 Mar 2022 (Library: OpenSSL 3.0.2 15 Mar 2022)",
+    "tassl": "OpenSSL 1.1.1b Tassl 1.4  23 Aug 2020",
+    "python": "Python 3.10.12"
+  },
+  "chain": {
+    "architecture": "Air",
+    "vm": "EVM",
+    "consensus": "PBFT",
+    "chain_id": "chain0",
+    "group_id": "group0",
+    "nodes": 4,
+    "tls": true,
+    "sm_crypto": false
+  },
+  "asset_sha256": "18a1000a987d2222d8e857d84029ed914bcb78e96d78f8b2d2c408d86c0e05b9  /opt/irpp-rq5/cache/build_chain_v3.7.3.sh\nb2b0121722a612ded5ccf4209bf88d12f224f4ebc75a5f2d9bafeac898b27d89  /opt/irpp-rq5/cache/fisco-bcos-linux-x86_64_v3.7.3.tar.gz\nf82db3f99e64e2eafefe6586d970fe12e0de47ed810bc78d41432587f88edf0c  /opt/irpp-rq5/cache/console_v3.7.0.tar.gz\n97700126df491b4ae15afae1bad99979390ded5d7d1655632e00b40003a9a9e8  /opt/irpp-rq5/cache/tassl-1.1.1b-linux-x86_64.tar.gz"
+}

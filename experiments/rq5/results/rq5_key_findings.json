@@ -1,0 +1,49 @@
+{
+  "target_workers": 27,
+  "normal_metrics": {
+    "PRTD": {
+      "active_s": 13.2508605765,
+      "final_s": 13.2508605765,
+      "traffic_report_kib": 7.625,
+      "traffic_task_kib": 451.984375,
+      "tx_task": null,
+      "ledger_kib_task": null
+    },
+    "RPPS-TDC": {
+      "active_s": 36.883302089,
+      "final_s": 36.883302089,
+      "traffic_report_kib": 6.75,
+      "traffic_task_kib": 599.978515625,
+      "tx_task": 59.0,
+      "ledger_kib_task": 194.560546875
+    },
+    "BSIF": {
+      "active_s": 35.4179105555,
+      "final_s": 35.4179105555,
+      "traffic_report_kib": 7.15234375,
+      "traffic_task_kib": 554.50390625,
+      "tx_task": 57.0,
+      "ledger_kib_task": 205.08984375
+    },
+    "IRPP-TD": {
+      "active_s": 15.7439293335,
+      "final_s": 16.2439293335,
+      "traffic_report_kib": 1.53125,
+      "traffic_task_kib": 322.9931640625,
+      "tx_task": 31.0,
+      "ledger_kib_task": 8.7490234375
+    }
+  },
+  "irpp_audit_paths": {
+    "normal_active_s": 15.7439293335,
+    "normal_final_s": 16.2439293335,
+    "proactive_active_s": 18.362042489500002,
+    "challenged_active_s": 18.924726161,
+    "delayed_final_s": 19.406917590000003
+  },
+  "throughput_tps": {
+    "IRPP-TD": 549.7542490000001,
+    "BSIF": 420.1276655,
+    "RPPS-TDC": 442.6219255
+  }
+}

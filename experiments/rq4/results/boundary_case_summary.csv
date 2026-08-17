@@ -1,0 +1,8 @@
+case,angular_available_rate,fallback_rate,td_finite_rate,common_truth_correct_rate,iterations_p95
+duplicate-full-rank,1.0,0.0,1.0,1.0,8.0
+empty-anchor-pool,0.0,1.0,1.0,1.0,6.0
+identical-reports,0.0,1.0,1.0,1.0,0.0
+rank-1,0.0,1.0,1.0,1.0,14.0
+scalar,0.0,1.0,1.0,1.0,13.0
+single-report,0.0,1.0,1.0,1.0,0.0
+two-anchors,0.0,1.0,1.0,1.0,6.0

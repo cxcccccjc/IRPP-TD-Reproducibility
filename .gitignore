@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Generated experiment artifacts
+*.log
+*.tiff
+*.tmp
+**/tmp/
+**/java/build/
+**/native/
+outputs/
+
+# Blockchain runtime and credentials
+**/assets/*.tar.gz
+**/chain/
+**/nodes/
+**/ledger/
+**/RocksDB/
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+

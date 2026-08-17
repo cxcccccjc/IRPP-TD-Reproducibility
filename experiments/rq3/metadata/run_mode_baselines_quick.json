@@ -1,0 +1,29 @@
+{
+  "shard_index": 0,
+  "shard_count": 1,
+  "quick": true,
+  "seeds": [
+    20260808
+  ],
+  "elapsed_s": 12.47501802444458,
+  "task_rows": 4500,
+  "modes": [
+    "clean",
+    "independent",
+    "compact",
+    "onoff",
+    "mature_anchor"
+  ],
+  "methods": [
+    "CRH-N",
+    "PRTD",
+    "QE"
+  ],
+  "python": "3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.22631-SP0",
+  "source_sha256": {
+    "rq3_data.py": "6a9489ac27bbe5d4e692c3936b75b19a37da0c9c9851b45c4e515c12623265b0",
+    "rq3_baselines.py": "2e756f6ac15cb02ceacb2c553d3e6ef753afc75414747000ce4440139c3be2c7",
+    "run_mode_baselines.py": "9a2c8300bf0e45c2bc69bb32b29c142a1bd54d0e90f8208c43dc9f2627ecf831"
+  }
+}

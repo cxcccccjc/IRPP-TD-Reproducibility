@@ -1,0 +1,26 @@
+{
+  "Climate_n27": {
+    "path": "../../data/workloads/Scene_1_Number_of_Workers_27.json",
+    "sha256": "dc6d9e1a6ca287e2ee89cd1f1c95f7c08a7d4f7a0e9d3417469c839097414515"
+  },
+  "Climate_n39": {
+    "path": "../../data/workloads/Scene_1_Number_of_Workers_39.json",
+    "sha256": "de0aad76d1faea011a3267f6169b95bc4d8b744f0a072098951914b2d39a05f1"
+  },
+  "Traffic_n27": {
+    "path": "../../data/workloads/Scene_2_Number_of_Workers_27.json",
+    "sha256": "177d09a70d51a099be2f7dc3bd7c51c03b067aa0318148c59630a8f75c60a49e"
+  },
+  "Traffic_n39": {
+    "path": "../../data/workloads/Scene_2_Number_of_Workers_39.json",
+    "sha256": "8f8b4d6455187d75efb4928256a00b428deafd40f7e9bd70b8559b67f90281db"
+  },
+  "Water_n27": {
+    "path": "../../data/workloads/Scene_3_Number_of_Workers_27.json",
+    "sha256": "7d0fcbbd575e911be22da96827b6fa629438a90be449358dd98b4dced2bd7c46"
+  },
+  "Water_n39": {
+    "path": "../../data/workloads/Scene_3_Number_of_Workers_39.json",
+    "sha256": "b718da5ff629dfe6c76769fa1554f5080c26f53cb0a853af5a1c283250eb84e3"
+  }
+}

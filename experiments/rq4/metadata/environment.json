@@ -1,0 +1,15 @@
+{
+  "python": "3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.22631-SP0",
+  "processor": "AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD",
+  "numpy": "2.0.2",
+  "pandas": "2.3.3",
+  "scipy": "1.13.1",
+  "psutil": "7.2.2",
+  "float64": {
+    "eps": 2.220446049250313e-16,
+    "tiny": 2.2250738585072014e-308,
+    "max": 1.7976931348623157e+308
+  },
+  "quick": false
+}

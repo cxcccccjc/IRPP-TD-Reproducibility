@@ -1,0 +1,551 @@
+% !TeX program = pdflatex
+% Standalone IEEE Transactions experiment section for IRPP-TD.
+% RQ1--RQ3 are backfilled with verified rerun results; RQ4--RQ5 remain placeholders.
+\documentclass[journal]{IEEEtran}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{stfloats}
+\usepackage{placeins}
+
+\definecolor{tbdblue}{RGB}{23,74,135}
+\definecolor{panelgray}{RGB}{246,247,249}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcommand{\tbd}{\textcolor{tbdblue}{\textsf{TBD}}}
+\newcommand{\fillnote}[1]{\textcolor{tbdblue}{\textit{[#1]}}}
+\newcommand{\panelbox}[2]{%
+  \fcolorbox{black!45}{panelgray}{%
+    \parbox[c][0.66in][c]{0.222\textwidth}{%
+      \centering\scriptsize\textbf{#1}\par\vspace{0.35ex}%
+      \footnotesize #2}}}
+
+\hyphenation{op-tical net-works semi-conduc-tor block-chain crowd-sens-ing}
+
+\begin{document}
+\markboth{IEEE Transactions on Mobile Computing, RQ1--RQ3 Experiment Revision}%
+{IRPP-TD: Performance Evaluation}
+\setcounter{section}{6}
+
+\section{Performance Evaluation}
+\label{sec:performance-evaluation}
+
+\subsection{Research Questions and Methodology}
+\label{sec:experimental-methodology}
+
+We evaluate IRPP-TD within the threat-model boundary. The intended data
+requester (DR) decrypts reports and observes task participation and reputation;
+accordingly, the experiments assess TD quality, worker-side robustness,
+efficiency, and conditional accountability, rather than confidentiality
+against the DR. We organize the evaluation around five questions.
+
+\begin{itemize}
+  \setlength{\itemsep}{0.15ex}
+  \setlength{\topsep}{0.3ex}
+  \setlength{\parsep}{0pt}
+  \item \emph{RQ1---Effectiveness and applicability:} How accurately and
+  consistently does IRPP-TD recover truth across heterogeneous task-aligned
+  sensing reports, workloads, task phases, and participation levels?
+  \item \emph{RQ2---Cold-start efficiency and recovery:} Can IRPP-TD resolve
+  cold start with few trusted reports and match exact-ABOD accuracy at lower
+  angular cost? Which components enable recovery from early errors?
+  \item \emph{RQ3---Worker-side poisoning:} How accurately and reliably does
+  IRPP-TD operate as malicious prevalence and normalized attack strength grow
+  under independent, compact-collusive, on--off, and mature-anchor poisoning,
+  and how well does guided anchoring contain feedback amplification?
+  \item \emph{RQ4---Stability and scalability:} Is IRPP-TD stable for near-zero
+  residuals or degenerate angular inputs, and how do approximation, convergence,
+  runtime, memory, and throughput scale?
+  \item \emph{RQ5---Practicality and accountability:} What are the primitive,
+  communication, ledger, and end-to-end costs, and how reliably are malicious-DR
+  faults corrected under weak challenges and partial audit corruption?
+\end{itemize}
+
+\begin{table}[!b]
+\centering
+\caption{RQ1 Workloads, Vector Semantics, and Realized Participation}
+\label{tab:workload-representation}
+\scriptsize
+\setlength{\tabcolsep}{1.2pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\columnwidth}{@{}lXrrc@{}}
+\toprule
+\textbf{Scene} & \textbf{Task-aligned coordinates} & \(\boldsymbol\ell\) & \textbf{Records} & \(\bar n_{27}/\bar n_{39}\) \\
+\midrule
+Climate & Pressure, potential temperature, humidity, air density, wind direction & 5 & 420,551 & 26.88/39.42 \\
+Traffic & Medium, heavy, micro, long, total, and light-vehicle flow & 6 & 809 & 28.33/38.86 \\
+Water & pH, hardness, solids, chloramines, sulfate, conductivity, organic carbon, trihalomethanes, turbidity & 9 & 2,089 & 27.26/39.23 \\
+\bottomrule
+\end{tabularx}
+\vspace{0.2ex}
+\parbox{0.98\columnwidth}{\scriptsize Records denotes the clean processed source, not the number of final task reports. Each stored workload contains 100 tasks.}
+\end{table}
+
+\textit{Workloads and reports:}
+The unchanged legacy pipeline combines stored SUMO trajectories with processed
+Climate, Traffic, and Water traces to form six semi-synthetic workloads, each
+with 100 tasks in a \(5800\times4300\) coordinate window. Of 100 worker IDs,
+1--50 have error probability 0; IDs 51--60, 61--70, 71--80, 81--90, and
+91--100 have probabilities 0.1, 0.3, 0.5, 0.7, and 0.9. Target participation
+27 and 39 yield the realized means in Table~\ref{tab:workload-representation}
+(task ranges 10--56 and 11--67). RQ1 reads the six stored JSON report matrices and
+reference vectors directly, without regenerating or injecting test reports.
+Each report retains the physical variables naturally associated with its task,
+as listed in Table~\ref{tab:workload-representation}; no coordinate replication
+or synthetic feature expansion is used. Coordinate-wise
+\(Q_{0.95}-Q_{0.05}\) scales are fitted only on tasks 1--20 and pooled across
+the two participation settings of the same scene.
+
+\textit{Comparison protocol:}
+We compare Mean, CRH, CRH-N, QE, RTD, BLIND, RPPS-TDC, and PRTD through retained
+legacy adapters, with byte-identical reports, references, order, and incidence.
+The adapters reuse the available legacy code and are not presented as official
+implementations; source hashes and adapter decisions are recorded.
+Tasks 1--20 freeze \(\zeta=0.25,\theta=0.35\),
+\(\mu_1=0.05823,\mu_2=0.001723\), \(s_0=n_b=e_b=5,q_b=2\), and
+\(\delta_{\max}=20\); tasks 21--100 are held out and never influence model
+selection.
+
+\textit{Metrics and statistics:}
+The primary outcomes are native-unit MAE/RMSE within each scene and
+scale-normalized NMAE/NRMSE for cross-scene analysis. We additionally record
+median/p95 task time, iteration count, across-seed variation, and no-truth rate.
+Deterministic baselines are evaluated on all 80 held-out tasks; IRPP-TD uses 30
+independent anchor-sampling seeds. Confidence intervals use 2,000 repetitions:
+a hierarchical seed/task bootstrap for IRPP-TD and a task bootstrap for
+deterministic methods. Paired comparisons resample the same task IDs, while
+Table~\ref{tab:main-td-results} reports compact interval half-widths.
+
+\textit{Adversarial and system settings:}
+RQ2 uses activity-balanced 50/50 stable populations, controlled cold-start
+policies, and forced early rating errors. RQ3 separately varies malicious
+ratios, normalized attack strength, collusion, on--off behavior, and reputation
+building before attack.
+Screening is assessed with F1, FPR/FNR, retention/leakage, anchor purity,
+maturity, and recovery delay. RQ5 injects incorrect DR labels, weights, state
+transitions, aggregates, payments, and missing/late audit packages while
+varying proactive auditing, challenge delay, committee corruption, and
+replacement. It reports per-entity computation, communication, ledger growth,
+end-to-end latency/throughput, bad-finalization, correction delay, and safe
+fallback. The supplement gives attack equations, full grids, audit state
+transitions, and implementation versions.
+
+\subsection{Truth-Discovery Effectiveness and Angular Applicability (RQ1)}
+\label{sec:rq1-effectiveness}
+
+\begin{table*}[!t]
+\centering
+\caption{RQ1 Truth-Discovery Accuracy on Held-Out Tasks 21--100 at Target \(\bar n=27\) (Lower Is Better)}
+\label{tab:main-td-results}
+\footnotesize
+\setlength{\tabcolsep}{2.40pt}
+\renewcommand{\arraystretch}{0.86}
+\newcommand{\dstrut}{\rule[-0.55ex]{0pt}{2.15ex}}
+\newcommand{\mci}[2]{\makebox[2.75em][r]{#1}{\scriptsize$\pm$\makebox[1.35em][l]{#2}}}
+\begin{tabular}{lcccccc>{\centering\arraybackslash}m{4.80em}>{\centering\arraybackslash}m{4.60em}}
+\toprule
+Method & \multicolumn{2}{c}{Climate} & \multicolumn{2}{c}{Traffic} & \multicolumn{2}{c}{Water} & \multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{Mean\\[-0.35ex]NRMSE}}} & \multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{Time/task\\[-0.35ex](ms)}}} \\[-0.42ex]
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+ & MAE & RMSE & MAE & RMSE & MAE & RMSE & & \\[-0.30ex]
+\midrule
+Mean\dstrut & \mci{5.581}{0.61} & \mci{9.288}{1.1} & \mci{16.71}{4.2} & \mci{39.21}{13} & \mci{29.86}{6.1} & \mci{119.23}{28} & 0.0213 & \textbf{4.43e-03} \\
+CRH\dstrut & \mci{2.338}{0.29} & \mci{3.798}{0.52} & \mci{6.452}{1.6} & \mci{14.53}{4.0} & \mci{10.18}{3.0} & \mci{48.46}{17} & 0.0116 & \underline{0.2452} \\
+CRH-N\dstrut & \mci{0.7762}{0.09} & \mci{1.194}{0.13} & \mci{2.564}{0.70} & \mci{6.622}{2.7} & \mci{6.394}{1.3} & \mci{24.70}{4.8} & \underline{6.47e-03} & 0.5850 \\
+QE\dstrut & \mci{5.277}{0.56} & \mci{8.774}{0.95} & \mci{15.75}{3.9} & \mci{36.72}{12} & \mci{28.19}{5.6} & \mci{112.30}{24} & 0.0201 & 4.180 \\
+RTD\dstrut & \mci{2.147}{0.16} & \mci{3.459}{0.26} & \mci{6.160}{1.5} & \mci{16.14}{4.5} & \mci{19.10}{4.8} & \mci{82.87}{28} & 0.0237 & 122.17 \\
+BLIND\dstrut & \mci{5.281}{0.58} & \mci{8.706}{1.1} & \mci{16.65}{4.1} & \mci{38.50}{9.4} & \mci{24.88}{5.4} & \mci{99.84}{28} & 0.0200 & 20.89 \\
+RPPS-TDC\dstrut & \underline{\mci{0.6044}{0.08}} & \underline{\mci{0.8981}{0.12}} & \underline{\mci{2.158}{0.59}} & \underline{\mci{5.035}{1.7}} & \underline{\mci{3.371}{0.70}} & \underline{\mci{11.69}{4.0}} & 9.38e-03 & 0.6059 \\
+PRTD\dstrut & \mci{1.762}{0.21} & \mci{2.764}{0.38} & \mci{4.585}{1.1} & \mci{9.681}{2.4} & \mci{6.711}{2.1} & \mci{33.26}{17} & 0.0102 & 1.175 \\
+\textbf{IRPP-TD}\dstrut & \textbf{\mci{0.4283}{0.01}} & \textbf{\mci{0.7304}{0.03}} & \textbf{\mci{1.362}{0.08}} & \textbf{\mci{3.660}{0.27}} & \textbf{\mci{2.418}{0.12}} & \textbf{\mci{11.02}{0.74}} & \textbf{1.76e-03} & 1.626 \\[-0.30ex]
+\bottomrule
+\end{tabular}
+\par\vspace{0.70ex}
+\noindent\parbox{0.98\textwidth}{\scriptsize
+Each \(\pm\) value is the half-width of a 95\% bootstrap interval (hierarchical seed/task for IRPP-TD; task bootstrap for deterministic baselines). IRPP-TD uses 30 anchor-sampling seeds. NMAE/NRMSE use calibration-fitted coordinate scales. Bold and underline mark the best and second-best point estimates under the matched adapter protocol.}
+\end{table*}
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{fig_rq1_main.pdf}
+\caption{RQ1 truth-discovery effectiveness on three SUMO-driven workloads.
+(a) Held-out NRMSE at \(\bar n=27\) with 95\% bootstrap intervals; colors/markers
+denote Climate, Traffic, and Water. (b) Empirical CDF of held-out task NRMSE at
+\(\bar n=27\) for IRPP-TD and the three closest retained accuracy competitors.
+(c) NRMSE change from target participation 27 to 39. (d) Scene-mean
+accuracy--cost operating points. Lower error and cost are better; a left-shifted
+CDF indicates lower task error.}
+\label{fig:rq1-overview}
+\end{figure*}
+
+\textit{Overall accuracy:}
+Table~\ref{tab:main-td-results} gives the complete matched comparison on held-out
+tasks at \(\bar n=27\). IRPP-TD obtains NRMSEs of 0.00314, 0.000526, and
+0.00160 on Climate, Traffic, and Water, respectively, and has the lowest
+native-unit MAE and RMSE in every scene. Relative to the strongest retained
+normalized baseline, CRH-N, it reduces NRMSE by 47.8\%, 54.1\%, and 87.0\%.
+The paired IRPP-TD-minus-CRH-N intervals are
+\([-3.49,-2.23]\!\times\!10^{-3}\),
+\([-8.43,-4.03]\!\times\!10^{-4}\), and
+\([-1.67,-0.33]\!\times\!10^{-2}\), so all three comparisons exclude zero.
+
+The same conclusion is not tied to one baseline family. Against PRTD, IRPP-TD
+reduces NRMSE by 76.9\%, 79.9\%, and 89.0\%. Against the closer native-error
+competitor RPPS-TDC, its MAE decreases by 29.1\%, 36.9\%, and 28.3\%, while
+RMSE decreases by 18.7\%, 27.3\%, and 5.7\%. The smaller Water-RMSE margin and
+the visibly wider baseline interval are retained in Table~\ref{tab:main-td-results}
+rather than being hidden by rank-only reporting.
+
+\textit{Task-error distribution and participation:}
+Fig.~\ref{fig:rq1-overview}(b) retains the 240 held-out scene--task units rather
+than reporting only scene means. IRPP-TD's empirical distribution is shifted
+toward lower NRMSE and has a shorter high-error tail than CRH-N, PRTD, and
+RPPS-TDC. Hence, its mean advantage is not driven by only a small subset of
+easy tasks. Supplementary Fig.~S1(d) separates the calibration, early-test, and
+mature-test phases. From tasks 21--50 to 51--100, NRMSE falls from 0.00347 to
+0.00293 on Climate and from 0.000691 to 0.000396 on Traffic. Water changes from
+0.00140 to 0.00170 but remains below its calibration value 0.00200; therefore,
+the phase evidence is favorable overall without implying monotone improvement
+for every workload.
+
+Fig.~\ref{fig:rq1-overview}(c) further shows that increasing target
+participation from 27 to 39 reduces IRPP-TD NRMSE by 21.0\%, 44.0\%, and
+20.8\% on the three workloads. IRPP-TD remains the best retained method in all
+three scenes at \(\bar n=39\), indicating that its advantage is not confined to
+the lower-participation setting. Across 30 anchor-sampling seeds, every held-out
+task returns a finite truth; the bounded update averages 3.93 and never exceeds
+seven iterations. Across-seed NRMSE standard deviations range from
+\(2.32\times10^{-6}\) to \(2.19\times10^{-4}\).
+
+\textit{Accuracy--cost tradeoff:}
+Fig.~\ref{fig:rq1-overview}(d) places these gains against per-task runtime.
+IRPP-TD averages 1.626~ms per task and a scene-mean NRMSE of
+\(1.76\times10^{-3}\). It is not the fastest estimator: CRH-N uses 0.585~ms
+and PRTD uses 1.175~ms. However, IRPP-TD lowers their mean NRMSE by 72.9\% and
+82.8\%, respectively, and remains substantially faster than BLIND (20.89~ms)
+and RTD (122.17~ms). This places IRPP-TD in a favorable millisecond-scale
+accuracy--cost region rather than claiming minimum computation in isolation.
+
+\textit{Angular applicability:}
+The reports are evaluated in their original task-aligned coordinate systems,
+without artificial feature expansion. The three workloads therefore provide
+evidence for RABOD when sensing reports contain meaningful, nondegenerate
+cross-coordinate geometry. They do not establish an angular advantage for
+scalar, rank-deficient, or unpartitioned multi-regime inputs; RQ4 explicitly
+tests these boundary cases and the declared bypass/fallback behavior.
+
+\FloatBarrier
+\subsection{Cold-Start Efficiency and Recovery (RQ2)}
+\label{sec:rq2-feedback}
+
+\textit{Protocol and population construction:}
+RQ2 preserves every RQ1 truth vector, task order, and SUMO-determined
+participation ID, but regenerates reports to expose worker-level ground truth.
+IDs are activity-stratified and interleaved before assigning exactly 50 stable
+high-quality (H) and 50 stable low-quality (L) workers, decoupling type from ID
+and mobility frequency. H reports use truncated $\pm1\%$ noise; L reports
+corrupt every coordinate by a signed $5\%$--$20\%$ deviation. Worker Macro-F1
+penalizes immature/uncertain states as abstentions, and NRMSE measures
+end-to-end accuracy.
+
+IRPP-HQ5 is the submitted policy: while fewer than $n_b=5$ mature ordinary
+anchors are present, it adds at most five disjoint high-quality reports.
+IRPP-HQ10 doubles that cap. ABOD-HQ5 changes only the angular evaluator: it
+uses every reputation-guided anchor instead of RABOD sampling and receives the
+same five-report bootstrap. No-Extra adds no report and uses a temporary
+all-ordinary reference only when fewer than four qualified anchors exist;
+Random-5 adds five reports from a disjoint half-H/half-L pool. HQ5 is a nested
+prefix of HQ10. All policies share reports, normalization, reputation state,
+stopping rules, seeds, and tuning budget. Because exact-ABOD scores have a
+different scale, its two cutoffs are selected on RQ1 tasks 1--20 with the same
+$3\times3$ quantile grid at the frozen $\theta$, never on RQ2 outcomes.
+
+All reputation and RABOD thresholds remain frozen from RQ1. Under E0, natural
+maturation is measured from task start. E1 forces a false-low update at an H
+worker's second participation; E3 does so at participations 2--4. Stable
+completion requires three consecutive high classifications; unresolved E1/E3
+workers are right-censored. We report ten-task blocks and 95\% intervals from
+2,000 bootstraps of 30 paired scene-macro seeds; $\bar n=39$ replication and
+resource details are in the supplement.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{fig_rq2_coldstart_main_recovery_1x4.pdf}
+\caption{RQ2 cold-start efficiency and recovery at $\bar n=27$.
+(a) Abstention-aware Worker Macro-F1; the inset enlarges blocks 30--60.
+(b) Mature NRMSE versus angular-pair evaluations per task; marker area gives
+the external-report cap (0, 5, or 10) per active task. (c) Paired block
+$\Delta$NRMSE under E1/E3 relative to E0. (d) Stable completion: E0 is measured
+from task start; E1/E3 after the final forced error, with unresolved workers
+censored. Curves/bands are scene-macro means/95\% intervals over 30 paired
+seeds. Higher is better in (a,d), lower in (b), and zero is ideal in (c).}
+\label{fig:rq2-coldstart}
+\end{figure*}
+
+\begin{table*}[!t]
+\centering
+\caption{RQ2 Component Ablation of Screening, Anchor Construction, TD
+Accuracy, and Bootstrap Cost at Target $\bar n=27$}
+\label{tab:rq2-main}
+\scriptsize
+\setlength{\tabcolsep}{3.25pt}
+\renewcommand{\arraystretch}{0.94}
+\begin{tabular}{lccccccc}
+\toprule
+Variant & AUPRC$\uparrow$ & Screening-F1$\uparrow$ & Anchor purity$\uparrow$ &
+Clean retention$\uparrow$ & Bad leakage$\downarrow$ &
+NRMSE ($10^{-3}$)$\downarrow$ & Seed/task$\downarrow$ \\
+\midrule
+\textbf{Full (IRPP-TD)} & 0.994$\pm$0.002 & 0.972$\pm$0.006 & 0.959$\pm$0.010 & 0.951$\pm$0.005 & 0.009$\pm$0.003 & 1.71$\pm$0.23 & 0.86$\pm$0.03 \\
+No-U & 0.979$\pm$0.001 & 0.937$\pm$0.005 & 0.948$\pm$0.008 & 0.916$\pm$0.008 & 0.059$\pm$0.006 & 1.68$\pm$0.21 & 0.86$\pm$0.03 \\
+Binary-Rep. & 0.984$\pm$0.001 & 0.963$\pm$0.006 & 0.942$\pm$0.009 & 0.928$\pm$0.014 & 0.021$\pm$0.003 & 1.74$\pm$0.22 & 0.93$\pm$0.06 \\
+All-Anchors & 0.552$\pm$0.008 & 0.196$\pm$0.012 & 0.507$\pm$0.001 & 0.920$\pm$0.013 & 0.682$\pm$0.009 & 12.15$\pm$1.30 & 0.76$\pm$0.03 \\
+Sequential & 0.552$\pm$0.008 & 0.196$\pm$0.012 & 0.507$\pm$0.001 & 0.894$\pm$0.016 & 0.608$\pm$0.012 & 11.56$\pm$1.20 & 0.76$\pm$0.03 \\
+No-Seeds & -- & 0.000$\pm$0.000 & -- & 1.000$\pm$0.000 & 1.000$\pm$0.000 & 13.62$\pm$1.50 & 0.00$\pm$0.00 \\
+Always-Seeds & 0.995$\pm$0.001 & 0.977$\pm$0.005 & 0.960$\pm$0.010 & 0.953$\pm$0.005 & 0.008$\pm$0.002 & 1.39$\pm$0.17 & 5.00$\pm$0.00 \\
+\bottomrule
+\end{tabular}
+\par\vspace{0.45ex}
+\noindent\parbox{0.98\textwidth}{\scriptsize
+Values are scene-macro means $\pm$ the larger 95\% hierarchical-bootstrap
+half-width over 30 paired seeds. Anchor purity treats the zero-error ordinary
+registry as reliable and excludes external seeds. AUPRC is computed only where
+angular evidence exists; '--' is undefined, not zero. Full combines ternary
+TV-uncertainty reputation, reputation-guided anchors, and adaptive seeds.
+No-U removes uncertainty shrinkage; Binary-Rep. replaces the ternary state by
+a binary Beta state; All-Anchors forms the angular reference from all current
+workers; Sequential applies all-worker angular detection before reputation
+gating; No-Seeds disables bootstrap; Always-Seeds keeps all five seeds active.}
+\end{table*}
+
+\textit{Cold-start accuracy and cost:}
+By task block 30, IRPP-HQ5 and IRPP-HQ10 reach Macro-F1 0.898 and 0.904,
+compared with 0.851 for ABOD-HQ5 and 0.269 and 0.254 for No-Extra and Random-5
+(Fig.~\ref{fig:rq2-coldstart}(a)). Their final values are 0.99994, 1.000,
+0.99788, 0.358, and 0.367, respectively. Mature NRMSE is 0.001639 for HQ5,
+0.001633 for HQ10, and 0.001730 for exact ABOD, versus 0.02460 and 0.02385 for the
+two controls. HQ5 evaluates 430 angular pairs per task, 81.2\% fewer than
+exact ABOD's 2,292. Doubling the trusted cap improves mature NRMSE by only
+$6.22\times10^{-6}$ while increasing cumulative external reports from 90.4 to
+178.3. Thus, five trusted reports give the stronger accuracy--worker-cost
+operating point; random extra reports do not substitute for trusted geometry.
+
+\textit{Finite early-error recovery:}
+E1 changes full-horizon NRMSE by $6.1\times10^{-6}$ and final Macro-F1 by
+$-0.04$ percentage points. E3 increases NRMSE by $8.54\times10^{-5}$, peaks at
+$2.93\times10^{-4}$ in block 20, and leaves a 1.07-point final F1 loss. In
+Fig.~\ref{fig:rq2-coldstart}(d), E0 naturally matures after a median of 7 own
+participations with no censoring. Measured instead from the final forced error,
+median recovery is 6 participations for E1 and 10 for E3; restricted means are
+7.26 and 11.26, with 0.24\% and 4.96\% censoring. E0 is therefore a natural
+maturation reference, not a same-origin recovery curve. The feedback loop
+recovers from a limited early mistake, while repeated mistakes produce a
+visible and longer tail rather than an irreversible lockout.
+
+\textit{Component isolation:}
+Table~\ref{tab:rq2-main} retains the RQ1 graded workers, isolating seven
+mechanisms from the binary stress population.
+Full reaches 0.994 AUPRC, 0.972 screening-F1, 0.959 anchor purity, and NRMSE
+$1.71\times10^{-3}$. No-U yields 0.979 AUPRC, 0.937 F1, 0.948 purity, and
+0.059 bad leakage; Binary-Rep. yields 0.984, 0.963, 0.942, and 0.021.
+Their NRMSEs remain near Full at $1.68\times10^{-3}$ and $1.74\times10^{-3}$,
+so uncertainty and the ternary state
+chiefly improve screening/anchor point estimates here. All-Anchors and
+Sequential reduce purity to 0.507 and raise NRMSE to 0.01215 and 0.01156, showing
+that reputation must shape the angular reference. No-Seeds deadlocks under the
+prior; Always-Seeds lowers NRMSE to 0.00139 at five reports per task. Together,
+the table and Fig.~\ref{fig:rq2-coldstart} separate component necessity,
+cold-start benefit, approximation cost, and finite-error recovery.
+
+\FloatBarrier
+\subsection{Robustness to Collusion and Reputation Poisoning (RQ3)}
+\label{sec:rq3-robustness}
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{fig_rq3_main_1x4.pdf}
+\caption{RQ3 worker-side robustness at $\bar n=27$. (a) Compact-collusion
+NRMSE versus prevalence. (b) Active-task NRMSE across clean and four attacks.
+(c) Malicious-report leakage under method-faithful hard screening. (d) Ordinary-anchor
+purity after the task-41 switch. RPPS-TDC uses native $p=0.3$; PRTD's added
+gate targets 96\% clean acceptance. Neither threshold affects (a,b).
+Attacks in (b,c) use $(\rho_m,\kappa)=(0.3,0.5)$. Estimates carry 95\%
+paired-seed intervals over 30 seeds; lower is better in (a)--(c), higher in (d).}
+\label{fig:worker-robustness}
+\end{figure*}
+
+\textit{Stress protocol:}
+We reuse the frozen RQ1 methods and $\bar n=27$ SUMO incidence. Activity-balanced
+sets vary \(\rho_m=0{:}0.1{:}0.8\); honest reports stay within $\pm1\%$, and
+attack displacement has calibration-scale RMS \(\kappa\). Fig.~\ref{fig:worker-robustness}(c) uses native
+IRPP-TD/RPPS-TDC decisions and a PRTD gate fitted only on clean tasks 1--20;
+all precede attack evaluation. HQ5 remain honest; details are in the supplement.
+
+\textit{Accuracy across attacks:}
+Compact collusion raises IRPP-TD from 0.00113 NRMSE to only 0.00215 at
+\(\rho_m=0.8\), versus the closest baseline at 0.406 and no abstention
+(Fig.~\ref{fig:worker-robustness}(a)). In panel (b), IRPP-TD records 0.00137
+under both immediate attacks; the nearest Independent and Compact baselines
+give 0.00886 and 0.04045. Its clean 0.00113 is close to QE's 0.00107.
+Under On--Off, IRPP-TD/CRH-N give 0.03631 and 0.03544; under Mature-Anchor,
+IRPP-TD is lowest at 0.03315. It therefore uniquely preserves near-clean
+accuracy across both immediate geometries and remains competitive when timed.
+
+\textit{Leakage and feedback:}
+Across Independent, Compact, On--Off, and Mature-Anchor, Fig.~\ref{fig:worker-robustness}(c) gives
+IRPP-TD leakage of 0, 0, 0.249, and 0.206; RPPS-TDC gives 0.00025, 0.080,
+0.293, and 0.295; PRTD retains 0.719--0.780. IRPP-TD accepts 0.953--0.993 of
+honest attack-phase reports, above RPPS-TDC's 0.730--0.986; PRTD exceeds
+0.999 but admits most poison. Thus, IRPP-TD has the strongest joint leakage--
+collateral-rejection tradeoff. Mature no-truth is only 0.019\%. In panel (d),
+Full purity recovers from 0.700 to 0.968 and its error ratio to 1.35, whereas
+unguided variants stay near 0.697. IRPP-TD therefore combines immediate
+accuracy and rejection with lower timed leakage and guided recovery.
+
+\FloatBarrier
+\subsection{Numerical Stability and Algorithmic Scalability (RQ4)}
+\label{sec:rq4-scalability}
+
+\begin{figure*}[!b]
+\centering
+\panelbox{(a) Runtime and slope}{Worker evaluation, RABOD, and TD runtime versus \(n_T\); fit the empirical complexity slope after the anchor cap.}
+\hfill
+\panelbox{(b) Memory and throughput}{Peak RAM and reports/s or tasks/s versus \(n_T\), report dimension, and task horizon.}
+\hfill
+\panelbox{(c) Dimension, cap, and fidelity}{Vary \(\ell\) and \(\delta_{\max}\); report exact-ABOD score Spearman, filtered-set Jaccard, and F1 gap.}
+\hfill
+\panelbox{(d) Convergence and degeneracy}{Iterations/NRMSE versus \(\epsilon,t_{\max}\); summarize zero residual, duplicate, low-rank, scalar, and empty-set fallback.}
+\caption{Algorithmic runtime, memory/throughput, approximation fidelity,
+convergence, and numerical fallback behavior (RQ4).}
+\label{fig:algorithm-scalability}
+\end{figure*}
+
+Fig.~\ref{fig:algorithm-scalability}(a)--(c) varies \(n_T\), dimension, and
+\(\delta_{\max}\), reporting module time, peak RAM, throughput, empirical
+complexity slope, and agreement with exact ABOD (score Spearman, retained-set
+Jaccard, and F1 gap). At \(n_T=10^4\), RABOD uses \tbd{} s/\tbd{} MB with
+slope \tbd{} and agreement \tbd; this slope applies only to the angular stage.
+
+Panel (d) varies \(\epsilon,t_{\max}\) and tests zero residuals, identical,
+duplicate/collinear, low-rank, scalar, insufficient-pair, and empty-retained-set
+inputs. Across \tbd{} trials it observes \tbd{} NaN/Inf values and \tbd{} cap
+hits. The main text retains the \((n_T,\delta_{\max})\) and
+\((\rho_m,\theta)\) interactions; all other sensitivity and fallback grids are
+reported in the supplement.
+
+\FloatBarrier
+\subsection{End-to-End Overhead and Conditional Accountability (RQ5)}
+\label{sec:rq5-system}
+
+\begin{table*}[!t]
+\centering
+\caption{End-to-End Comparison under a Matched MCS Workload and Security Setting}
+\label{tab:e2e-matched-comparison}
+\scriptsize
+\setlength{\tabcolsep}{1.7pt}
+\renewcommand{\arraystretch}{1.04}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.08\textwidth}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.23\textwidth}>{\raggedright\arraybackslash}p{0.20\textwidth}ccc@{}}
+\toprule
+\textbf{Scheme} & \textbf{Analytics} & \textbf{Privacy scope} &
+\textbf{Malicious-DR handling} & \textbf{Latency} &
+\textbf{Traffic/report} & \textbf{Chain storage/task} \\
+\midrule
+PRTD & Reputation-weighted TD & \tbd{} from exact threat model & \tbd{} from exact protocol & \tbd & \tbd & \tbd{} / N/A \\
+RPPS-TDC & Reputation-aware collection/TD & \tbd{} from exact threat model & \tbd{} from exact protocol & \tbd & \tbd & \tbd \\
+BSIF & Task evaluation/incentive; no TD & \tbd{} from exact threat model & \tbd{} from exact protocol & \tbd & \tbd & \tbd \\
+\textbf{IRPP-TD} & RABOD and bounded TD & TP/RB/public; excludes intended DR & Proactive-or-challenged conditional accountability & \textbf{\tbd} & \textbf{\tbd} & \textbf{\tbd} \\
+\bottomrule
+\end{tabularx}
+\vspace{0.25ex}
+\parbox{0.98\textwidth}{\scriptsize
+\textit{Fairness rule:} use the same worker count, payload, hardware, network,
+and security level. Compare only shared protocol phases. BSIF has no TD module,
+so its TD accuracy is N/A. Never mix locally measured and source-reported
+runtime values in one quantitative ranking.}
+\end{table*}
+
+\begin{table}[!t]
+\centering
+\caption{Malicious-DR Fault Injection and Expected Protocol Path}
+\label{tab:dr-fault-matrix}
+\scriptsize
+\setlength{\tabcolsep}{1.35pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\columnwidth}{@{}>{\raggedright\arraybackslash}p{0.26\columnwidth}>{\raggedright\arraybackslash}p{0.31\columnwidth}X@{}}
+\toprule
+\textbf{Injected deviation} & \textbf{Trigger condition} & \textbf{Expected path/result} \\
+\midrule
+Wrong label/weight/state & Challenge or proactive audit & Re-execute; correct or reject pending batch \\
+Biased aggregate/payment & Challenge or proactive audit & Correct aggregate/payment; slash on DR fault \\
+Missing/late package & Audit deadline expires & Default DR fault and correction path \\
+First committee unavailable & Fewer than \(t_A\) timely votes & Draw one replacement committee \\
+Second committee unavailable & Replacement also fails & Preserve predecessor; release safe base payment \\
+Threshold corruption & At least \(t_A\) corrupt auditors & Declared residual failure boundary \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{figure*}[!t]
+\centering
+\panelbox{(a) Primitive/entity time}{KEM, AEAD, signatures, commitments, and Merkle operations on worker, TP, DR, RB, and auditor hardware; report median/p95.}
+\hfill
+\panelbox{(b) P1--P7 system cost}{Per-protocol latency, traffic, storage/task, TPS, and confirmation delay versus workers and payload length.}
+\hfill
+\panelbox{(c) Matched end-to-end systems}{IRPP-TD, BSIF, PRTD, and RPPS-TDC common-path latency/traffic on one platform and security level.}
+\hfill
+\panelbox{(d) Accountability Pareto}{Audit cost versus bad-finalization and correction delay under no/delayed challenge and partial committee corruption.}
+\caption{Concrete primitive and protocol costs, matched end-to-end system
+comparison, and the conditional-accountability tradeoff (RQ5).}
+\label{fig:system-accountability}
+\end{figure*}
+
+The concrete suite is \fillnote{insert KEM/AEAD/signature/hash parameters and
+versions}; the FISCO BCOS testbed uses \tbd{} nodes, \tbd{} consensus, \tbd{}
+RTT, and \tbd-byte reports. Fig.~\ref{fig:system-accountability}(a)--(c) reports
+per-entity median/p95 time, per-protocol traffic/storage, TPS, confirmation
+delay, and matched common-path costs. The normal/audited paths require
+\tbd/\tbd{} ms and \tbd/\tbd{} bytes; Table~\ref{tab:e2e-matched-comparison}
+keeps analytic scope and privacy boundaries visible beside these costs.
+
+Table~\ref{tab:dr-fault-matrix} preregisters the correct ledger path for each
+fault. Panel (d) varies no/timely/delayed challenge, \(p_A\), committee
+corruption, timeout, and one replacement, reporting fault detection, bad
+finalization, correction delay, and safe fallback. It obtains \tbd{} bad
+finalization at \tbd{} extra cost; fewer than \(t_A\) corrupt auditors correct
+\tbd{} of triggered faults. For observed timely-challenge probability \(c_T\),
+we report \(q_T=1-(1-p_A)(1-c_T)\) and
+\(\bar C_T=(1-q_T)C_N+q_TC_A\) beside empirical outcomes. Threshold corruption
+and active RB--DR collusion remain failure boundaries, not solved cases.
+
+% Keep the concluding validity discussion with the final experiment page;
+% all RQ5 floats have already been introduced above and may settle naturally.
+\subsection{Summary and Threats to Validity}
+\label{sec:experiment-summary}
+
+RQ1 shows that IRPP-TD improves over every retained baseline, benefits from
+higher participation, returns a finite truth on every held-out run, and uses at
+most seven iterations on the tested representations. RQ2 shows that an adaptive
+five-report cap resolves the activity-balanced 50/50 cold start, matches or
+improves exact-ABOD accuracy with 81.2\% fewer angular pairs, and recovers from
+limited early false-low updates. The ablation identifies necessary
+anchor/bootstrap components; uncertainty and ternary state improve
+screening/anchor point estimates without a resolved TD-error gain. RQ3 shows
+strong suppression of immediate poisoning and eventual guided-anchor recovery,
+but also exposes transient errors under reputation-aware timing. Conclusions
+for RQ4--RQ5 remain \tbd{} until those experiments are executed.
+
+\textit{Validity and reproducibility:}
+Real reference vectors are paired with semi-synthetic reliability/attacks; the
+three domains do not cover scalar, multi-regime, or out-of-model collusion.
+Methods share inputs and disjoint splits; test truth is evaluation-only, and
+seeded sequences are the bootstrap units. Complete artifacts are released;
+unmatched systems remain N/A or \tbd{}.
+
+\end{document}

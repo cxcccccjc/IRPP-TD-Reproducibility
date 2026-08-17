@@ -1,0 +1,55 @@
+{
+  "elapsed_s": 35.0006890296936,
+  "rows": 720,
+  "seeds": [
+    20260808,
+    20260809,
+    20260810,
+    20260811,
+    20260812,
+    20260813,
+    20260814,
+    20260815,
+    20260816,
+    20260817,
+    20260818,
+    20260819,
+    20260820,
+    20260821,
+    20260822,
+    20260823,
+    20260824,
+    20260825,
+    20260826,
+    20260827,
+    20260828,
+    20260829,
+    20260830,
+    20260831,
+    20260832,
+    20260833,
+    20260834,
+    20260835,
+    20260836,
+    20260837
+  ],
+  "modes": [
+    "independent",
+    "compact",
+    "onoff",
+    "mature_anchor"
+  ],
+  "methods": [
+    "QE",
+    "PRTD"
+  ],
+  "definition": "retained active malicious reports / all active malicious reports",
+  "prtd_interpretation": "all reports retained because PRTD has no hard filtering stage",
+  "python": "3.12.13 (main, Mar  3 2026, 15:01:35) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "source_sha256": {
+    "run_mode_leakage_baselines.py": "04f465b8540b93e3c696664d467cdc758e2f02b2340e15bdf163060a06d50c15",
+    "rq3_data.py": "6a9489ac27bbe5d4e692c3936b75b19a37da0c9c9851b45c4e515c12623265b0",
+    "legacy_qe_main_system.py": "e4242705cc089516cc853d9babe2057da7a99c7f72c5f550e75f22eeaabdb070"
+  }
+}

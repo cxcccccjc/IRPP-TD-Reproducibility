@@ -1,0 +1,91 @@
+{
+  "angular_default": {
+    "27": {
+      "scene_macro_nrmse": 0.0017555055298993608,
+      "nrmse_ci": [
+        0.001711229066195083,
+        0.0018023590754967702
+      ],
+      "pairs_per_task": 420.64875,
+      "no_truth_rate": 0.0,
+      "exact_pair_reduction": 0.8387766368836829
+    },
+    "39": {
+      "scene_macro_nrmse": 0.0013481279607726784,
+      "nrmse_ci": [
+        0.0013139923145040627,
+        0.0013879811115469444
+      ],
+      "pairs_per_task": 813.7638888888888,
+      "no_truth_rate": 0.0,
+      "exact_pair_reduction": 0.9005528177731333
+    }
+  },
+  "stopping_default": {
+    "scene_macro_gap": 3.3900597992871407e-06,
+    "scene_macro_gap_p95": 6.389847270162699e-06,
+    "max_gap": 2.513443493876662e-05,
+    "cap_hit_rate": 0.0,
+    "iterations_p95": 5.333333333333333
+  },
+  "scaling": {
+    "full_runtime_at_10000_s": 0.54945215,
+    "full_throughput_at_10000_reports_s": 18199.94698355444,
+    "rabod_runtime_at_400_s": 0.0200441,
+    "exact_runtime_at_400_s": 0.95099115,
+    "exact_to_rabod_ratio_at_400": 47.44494140420373,
+    "exact_first_censored_n": 800,
+    "slopes": {
+      "rabod_pre_cap": {
+        "slope": 1.0215135283286567,
+        "ci_low": 1.0201279919223887,
+        "ci_high": 1.0222542674284913,
+        "n_min": 20,
+        "n_max": 400
+      },
+      "rabod_post_cap": {
+        "slope": 1.0219447488543116,
+        "ci_low": 1.0204398730620499,
+        "ci_high": 1.0238525328615307,
+        "n_min": 400,
+        "n_max": 10000
+      },
+      "full_post_cap": {
+        "slope": 1.0203021583957548,
+        "ci_low": 1.0193506080945984,
+        "ci_high": 1.0230789335442259,
+        "n_min": 400,
+        "n_max": 10000
+      },
+      "exact_observed": {
+        "slope": 2.398197913085224,
+        "ci_low": 2.3977135256602886,
+        "ci_high": 2.3993363884373062,
+        "n_min": 20,
+        "n_max": 400
+      }
+    }
+  },
+  "stability": {
+    "full_min_success_rate": 1.0,
+    "full_min_wilson_lower": 0.996173241514445,
+    "full_max_raw_weight": 0.6931471805599453,
+    "log_2": 0.6931471805599453,
+    "full_max_normalization_error": 4.440892098500626e-16,
+    "trials_per_cell": 1000
+  },
+  "angular_applicability": {
+    "context-partitioned": {
+      "nrmse": 0.00883234358908321,
+      "angular_available_rate": 1.0
+    },
+    "single-regime": {
+      "nrmse": 0.006219446903633882,
+      "angular_available_rate": 1.0
+    },
+    "unpartitioned-two-regime": {
+      "nrmse": 0.16063620925407665,
+      "angular_available_rate": 1.0
+    }
+  }
+}

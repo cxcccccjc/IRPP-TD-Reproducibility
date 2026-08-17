@@ -1,0 +1,35 @@
+{
+  "workload_root": "../../data/workloads",
+  "baseline_root": "../../baselines",
+  "rq1_root": "../rq1",
+  "data_files": {
+    "Climate_n27": "Scene_1_Number_of_Workers_27.json",
+    "Climate_n39": "Scene_1_Number_of_Workers_39.json",
+    "Traffic_n27": "Scene_2_Number_of_Workers_27.json",
+    "Traffic_n39": "Scene_2_Number_of_Workers_39.json",
+    "Water_n27": "Scene_3_Number_of_Workers_27.json",
+    "Water_n39": "Scene_3_Number_of_Workers_39.json"
+  },
+  "random_seeds": [
+    20260808, 20260809, 20260810, 20260811, 20260812, 20260813,
+    20260814, 20260815, 20260816, 20260817, 20260818, 20260819,
+    20260820, 20260821, 20260822, 20260823, 20260824, 20260825,
+    20260826, 20260827, 20260828, 20260829, 20260830, 20260831,
+    20260832, 20260833, 20260834, 20260835, 20260836, 20260837
+  ],
+  "calibration_tasks": 20,
+  "test_tasks": [21, 100],
+  "attack_ratios": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
+  "attack_strengths": [0.1, 0.25, 0.5, 1.0, 2.0],
+  "primary_attack_strength": 0.5,
+  "mode_ratio": 0.3,
+  "mature_attack_task": 41,
+  "onoff_attack_blocks": [[21, 30], [41, 50], [61, 70], [81, 90]],
+  "hq_seed_ids": [1001, 1002, 1003, 1004, 1005],
+  "bootstrap_repetitions": 2000,
+  "operational_error_ratio": 5.0,
+  "operational_no_truth_rate": 0.05,
+  "baseline_methods": ["IRPP-TD", "CRH-N", "PRTD", "QE"],
+  "main_variants": ["Full", "Binary-Rep.", "All-Anchors", "Sequential"],
+  "supplement_variants": ["Full", "Binary-Rep.", "No-U", "All-Anchors", "Sequential"]
+}

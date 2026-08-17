@@ -1,0 +1,7 @@
+{
+  "rows": 720,
+  "cells": 24,
+  "triggered_detection_min": 1.0,
+  "no_trigger_bad_finalization_min": 1.0,
+  "status": "PASS"
+}

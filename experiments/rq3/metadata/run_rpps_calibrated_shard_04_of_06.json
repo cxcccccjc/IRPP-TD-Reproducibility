@@ -1,0 +1,37 @@
+{
+  "elapsed_s": 12.718914985656738,
+  "shard_index": 4,
+  "shard_count": 6,
+  "seeds": [
+    20260812,
+    20260818,
+    20260824,
+    20260830,
+    20260836
+  ],
+  "workloads": [
+    "Climate_n27",
+    "Traffic_n27",
+    "Water_n27"
+  ],
+  "modes": [
+    "independent",
+    "compact",
+    "onoff",
+    "mature_anchor"
+  ],
+  "task_rows": 6000,
+  "calibration_rows": 15,
+  "native_threshold": 0.3,
+  "threshold_policy": "fixed p from retained RPPS-TDC source",
+  "clean_measurement_scope": "separate clean replay, tasks 1--20 only",
+  "attack_scope": "frozen p, sequential tasks 1--100",
+  "python": "3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.22631-SP0",
+  "source_sha256": {
+    "run_rpps_calibrated_leakage.py": "1afe68b12e9a3fe740c50825fc44f9a03161cb44e39e1dd9bb96c2f717cd88c8",
+    "rq3_rpps_calibrated.py": "c225ff7db53d0736a67e4df526dcb1a190932f3ade57c253fc0217807c329fc6",
+    "legacy_truth_discovery.py": "755e7d7cb0374badc92b634531b7978861a564c93357ecd597f43e77db569adb",
+    "legacy_reputation_update.py": "6d3a27c98587cf53005dfc7218c8895933594708c75fe7ab911de913608959ca"
+  }
+}

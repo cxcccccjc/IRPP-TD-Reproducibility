@@ -1,0 +1,4 @@
+protocol,n,run,audit_mode,chain_active_ms,tx_count,confirm_median_ms,confirm_p95_ms,ledger_bytes_task,gas_used,block_start,block_end,valid,contract_address
+IRPP-TD,3,-1,normal,3508.042511,7,501.332784,502.860143,2023,160539,3148,3155,true,0xf12b2fb52c8394dbae033b13579998ea3e870c3a
+BSIF,3,-1,normal,4525.736211,9,501.220216,526.085063,24276,3684126,3155,3164,true,0xa3c558c294c82a168fe54ae500522853ffc2a1de
+RPPS-TDC,3,-1,normal,5616.906826,11,503.734716,541.194959,23478,3511542,3164,3175,true,0xe7f584c389dec3174c463fe999b9e14eb544cede

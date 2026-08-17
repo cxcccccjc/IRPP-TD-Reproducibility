@@ -1,0 +1,236 @@
+{
+  "Climate_n27": {
+    "path": "data/workloads/Scene_1_Number_of_Workers_27.json",
+    "sha256": "dc6d9e1a6ca287e2ee89cd1f1c95f7c08a7d4f7a0e9d3417469c839097414515",
+    "scene": "Climate",
+    "target_workers": 27,
+    "task_count": 100,
+    "dimension": 5,
+    "participants_min": 14,
+    "participants_mean": 26.88,
+    "participants_median": 26.0,
+    "participants_max": 40,
+    "feature_names": [
+      "Pressure",
+      "Potential temperature",
+      "Humidity",
+      "Air density",
+      "Wind direction"
+    ],
+    "processed_records": 420551,
+    "normalization_center": [
+      990.65,
+      285.0,
+      74.55,
+      1203.63,
+      197.01
+    ],
+    "normalization_scale_q95_minus_q05": [
+      290.9699999999999,
+      77.55000000000001,
+      56.11,
+      329.8900000000001,
+      258.75
+    ]
+  },
+  "Climate_n39": {
+    "path": "data/workloads/Scene_1_Number_of_Workers_39.json",
+    "sha256": "de0aad76d1faea011a3267f6169b95bc4d8b744f0a072098951914b2d39a05f1",
+    "scene": "Climate",
+    "target_workers": 39,
+    "task_count": 100,
+    "dimension": 5,
+    "participants_min": 23,
+    "participants_mean": 39.42,
+    "participants_median": 39.0,
+    "participants_max": 56,
+    "feature_names": [
+      "Pressure",
+      "Potential temperature",
+      "Humidity",
+      "Air density",
+      "Wind direction"
+    ],
+    "processed_records": 420551,
+    "normalization_center": [
+      990.65,
+      285.0,
+      74.55,
+      1203.63,
+      197.01
+    ],
+    "normalization_scale_q95_minus_q05": [
+      290.9699999999999,
+      77.55000000000001,
+      56.11,
+      329.8900000000001,
+      258.75
+    ]
+  },
+  "Traffic_n27": {
+    "path": "data/workloads/Scene_2_Number_of_Workers_27.json",
+    "sha256": "177d09a70d51a099be2f7dc3bd7c51c03b067aa0318148c59630a8f75c60a49e",
+    "scene": "Traffic",
+    "target_workers": 27,
+    "task_count": 100,
+    "dimension": 6,
+    "participants_min": 10,
+    "participants_mean": 28.33,
+    "participants_median": 27.0,
+    "participants_max": 54,
+    "feature_names": [
+      "Medium",
+      "Heavy",
+      "Micro",
+      "Long",
+      "Total",
+      "Light vehicle flow"
+    ],
+    "processed_records": 809,
+    "normalization_center": [
+      476.38,
+      294.12,
+      2530.135,
+      612.39,
+      4632.98,
+      410.84000000000003
+    ],
+    "normalization_scale_q95_minus_q05": [
+      1613.292,
+      934.2165,
+      8452.0915,
+      2459.0045,
+      14565.337000000021,
+      1278.859
+    ]
+  },
+  "Traffic_n39": {
+    "path": "data/workloads/Scene_2_Number_of_Workers_39.json",
+    "sha256": "8f8b4d6455187d75efb4928256a00b428deafd40f7e9bd70b8559b67f90281db",
+    "scene": "Traffic",
+    "target_workers": 39,
+    "task_count": 100,
+    "dimension": 6,
+    "participants_min": 11,
+    "participants_mean": 38.86,
+    "participants_median": 39.5,
+    "participants_max": 64,
+    "feature_names": [
+      "Medium",
+      "Heavy",
+      "Micro",
+      "Long",
+      "Total",
+      "Light vehicle flow"
+    ],
+    "processed_records": 809,
+    "normalization_center": [
+      476.38,
+      294.12,
+      2530.135,
+      612.39,
+      4632.98,
+      410.84000000000003
+    ],
+    "normalization_scale_q95_minus_q05": [
+      1613.292,
+      934.2165,
+      8452.0915,
+      2459.0045,
+      14565.337000000021,
+      1278.859
+    ]
+  },
+  "Water_n27": {
+    "path": "data/workloads/Scene_3_Number_of_Workers_27.json",
+    "sha256": "7d0fcbbd575e911be22da96827b6fa629438a90be449358dd98b4dced2bd7c46",
+    "scene": "Water",
+    "target_workers": 27,
+    "task_count": 100,
+    "dimension": 9,
+    "participants_min": 10,
+    "participants_mean": 27.26,
+    "participants_median": 26.0,
+    "participants_max": 56,
+    "feature_names": [
+      "pH",
+      "Hardness",
+      "Solids",
+      "Chloramines",
+      "Sulfate",
+      "Conductivity",
+      "Organic carbon",
+      "Trihalomethanes",
+      "Turbidity"
+    ],
+    "processed_records": 2089,
+    "normalization_center": [
+      6.96,
+      201.985,
+      20855.915,
+      7.05,
+      337.25,
+      401.03499999999997,
+      15.485,
+      66.82,
+      3.9
+    ],
+    "normalization_scale_q95_minus_q05": [
+      4.335000000000001,
+      104.35,
+      32741.787499999995,
+      4.010000000000002,
+      175.14999999999998,
+      271.8175,
+      10.55,
+      67.22,
+      2.6325000000000003
+    ]
+  },
+  "Water_n39": {
+    "path": "data/workloads/Scene_3_Number_of_Workers_39.json",
+    "sha256": "b718da5ff629dfe6c76769fa1554f5080c26f53cb0a853af5a1c283250eb84e3",
+    "scene": "Water",
+    "target_workers": 39,
+    "task_count": 100,
+    "dimension": 9,
+    "participants_min": 12,
+    "participants_mean": 39.23,
+    "participants_median": 38.5,
+    "participants_max": 67,
+    "feature_names": [
+      "pH",
+      "Hardness",
+      "Solids",
+      "Chloramines",
+      "Sulfate",
+      "Conductivity",
+      "Organic carbon",
+      "Trihalomethanes",
+      "Turbidity"
+    ],
+    "processed_records": 2089,
+    "normalization_center": [
+      6.96,
+      201.985,
+      20855.915,
+      7.05,
+      337.25,
+      401.03499999999997,
+      15.485,
+      66.82,
+      3.9
+    ],
+    "normalization_scale_q95_minus_q05": [
+      4.335000000000001,
+      104.35,
+      32741.787499999995,
+      4.010000000000002,
+      175.14999999999998,
+      271.8175,
+      10.55,
+      67.22,
+      2.6325000000000003
+    ]
+  }
+}

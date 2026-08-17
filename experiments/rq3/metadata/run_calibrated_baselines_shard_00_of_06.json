@@ -1,0 +1,24 @@
+{
+  "shard_index": 0,
+  "shard_count": 6,
+  "quick": false,
+  "modes_only": false,
+  "seeds": [
+    20260808,
+    20260814,
+    20260820,
+    20260826,
+    20260832
+  ],
+  "target_clean_acceptance": 0.96,
+  "task_rows": 69000,
+  "calibration_rows": 30,
+  "elapsed_s": 411.28095984458923,
+  "python": "3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.22631-SP0",
+  "source_sha256": {
+    "rq3_data.py": "6a9489ac27bbe5d4e692c3936b75b19a37da0c9c9851b45c4e515c12623265b0",
+    "rq3_calibrated_baselines.py": "fa2f6f1b7a7b39c5f795f49b7a9b9fe7b699a8987d3667c2a5cc8f1dbfc1bad9",
+    "run_calibrated_baselines.py": "0d33a9e8f4d33fe094a4b25f74ddcf368c1b2e4b4049f21249e3a77d6ad6a42a"
+  }
+}

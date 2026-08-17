@@ -1,0 +1,67 @@
+protocol,operation,setup_ms
+IRPP,NTRU+768 DR keygen,0.064748
+IRPP,NTRU+768 worker keygen,0.032926
+IRPP,NTRU+768 worker keygen,0.031749
+IRPP,NTRU+768 worker keygen,0.031676
+IRPP,NTRU+768 worker keygen,0.032708
+IRPP,NTRU+768 worker keygen,0.031363
+IRPP,NTRU+768 worker keygen,0.031551
+IRPP,NTRU+768 worker keygen,0.032875
+IRPP,NTRU+768 worker keygen,0.032677
+IRPP,NTRU+768 worker keygen,0.032677
+IRPP,NTRU+768 worker keygen,0.032676
+IRPP,NTRU+768 worker keygen,0.032864
+IRPP,NTRU+768 worker keygen,0.032656
+IRPP,NTRU+768 worker keygen,0.031478
+IRPP,NTRU+768 worker keygen,0.032645
+IRPP,NTRU+768 worker keygen,0.032583
+IRPP,NTRU+768 worker keygen,0.032687
+IRPP,NTRU+768 worker keygen,0.032624
+IRPP,NTRU+768 worker keygen,0.032593
+IRPP,NTRU+768 worker keygen,0.032624
+IRPP,NTRU+768 worker keygen,0.032697
+IRPP,NTRU+768 worker keygen,0.031467
+IRPP,NTRU+768 worker keygen,0.032635
+IRPP,NTRU+768 worker keygen,0.032656
+IRPP,NTRU+768 worker keygen,0.032603
+IRPP,NTRU+768 worker keygen,0.032697
+IRPP,NTRU+768 worker keygen,0.032676
+IRPP,NTRU+768 worker keygen,0.050077
+IRPP,NTRU+768 worker keygen,0.036813
+IRPP,NTRU+768 worker keygen,0.032051
+IRPP,NTRU+768 worker keygen,0.032968
+IRPP,NTRU+768 worker keygen,0.032509
+IRPP,NTRU+768 worker keygen,0.032301
+IRPP,NTRU+768 worker keygen,0.03227
+IRPP,NTRU+768 worker keygen,0.038553
+IRPP,NTRU+768 worker keygen,0.032489
+IRPP,NTRU+768 worker keygen,0.032322
+IRPP,NTRU+768 worker keygen,0.031124
+IRPP,NTRU+768 worker keygen,0.032385
+IRPP,NTRU+768 worker keygen,0.035678
+IRPP,NTRU+768 worker keygen,0.032354
+IRPP,NTRU+768 worker keygen,0.032291
+IRPP,NTRU+768 worker keygen,0.032228
+IRPP,NTRU+768 worker keygen,0.03275
+IRPP,NTRU+768 worker keygen,0.032301
+IRPP,NTRU+768 worker keygen,0.031186
+IRPP,NTRU+768 worker keygen,0.03228
+IRPP,NTRU+768 worker keygen,0.032406
+IRPP,NTRU+768 worker keygen,0.032708
+IRPP,NTRU+768 worker keygen,0.03227
+IRPP,NTRU+768 worker keygen,0.032364
+IRPP,NTRU+768 auditor keygen,0.032478
+IRPP,NTRU+768 auditor keygen,0.032738
+IRPP,NTRU+768 auditor keygen,0.031311
+IRPP,NTRU+768 auditor keygen,0.032479
+IRPP,NTRU+768 auditor keygen,0.032333
+IRPP,Ed25519 worker keygen batch,2.010353
+IRPP,Ed25519 DR keygen,0.021486
+IRPP,Ed25519 TP keygen,0.019923
+IRPP,Ed25519 auditor keygen batch,0.215418
+BSIF,Paillier-3072 keygen,490.667649
+BSIF,RSA-3072 worker envelope keygen batch,4594.347774
+RPPS-TDC,Paillier-3072 DR keygen,148.567485
+RPPS-TDC,Paillier-3072 RC keygen,221.249461
+PRTD,Paillier-3072 two-cloud keygen,595.089092
+PRTD,3072-bit DSA-group setup,3227.627662

@@ -1,0 +1,32 @@
+{
+  "data_root": "../../data/workloads",
+  "rq1_root": "../rq1",
+  "data_files": {
+    "Climate_n27": "Scene_1_Number_of_Workers_27.json",
+    "Climate_n39": "Scene_1_Number_of_Workers_39.json",
+    "Traffic_n27": "Scene_2_Number_of_Workers_27.json",
+    "Traffic_n39": "Scene_2_Number_of_Workers_39.json",
+    "Water_n27": "Scene_3_Number_of_Workers_27.json",
+    "Water_n39": "Scene_3_Number_of_Workers_39.json"
+  },
+  "random_seeds": [20260808, 20260809, 20260810, 20260811, 20260812, 20260813, 20260814, 20260815, 20260816, 20260817, 20260818, 20260819, 20260820, 20260821, 20260822, 20260823, 20260824, 20260825, 20260826, 20260827, 20260828, 20260829, 20260830, 20260831, 20260832, 20260833, 20260834, 20260835, 20260836, 20260837],
+  "bootstrap_repetitions": 2000,
+  "task_block_size": 10,
+  "ordinary_worker_ids": [1, 100],
+  "hq_seed_ids": [1001, 1002, 1003, 1004, 1005],
+  "random_extra_ids": [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010],
+  "random_extra_reports_per_task": 5,
+  "malicious_ratios": [0.0, 0.1, 0.2, 0.4, 0.5, 0.6, 0.8],
+  "cold_start_malicious_ratio": 0.5,
+  "switch_task": 41,
+  "h_to_l_fractions": [0.25, 0.5, 1.0],
+  "l_to_h_fraction": 0.5,
+  "early_error_conditions": {
+    "E0": [],
+    "E1": [2],
+    "E3": [2, 3, 4]
+  },
+  "main_target_workers": 27,
+  "replication_target_workers": 39,
+  "strategies": ["Adaptive-HQ", "No-Extra", "Random-Extra"]
+}

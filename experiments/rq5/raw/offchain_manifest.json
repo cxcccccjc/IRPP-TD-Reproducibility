@@ -1,0 +1,19 @@
+{
+  "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+  "n_values": [
+    10,
+    20,
+    27,
+    39,
+    50
+  ],
+  "runs": 30,
+  "warmups": 3,
+  "dimension": 9,
+  "payload_bytes": 256,
+  "seed_base": 2026081000,
+  "elapsed_seconds": 4237.559533119202,
+  "normal_rows": 600,
+  "audit_rows": 90
+}

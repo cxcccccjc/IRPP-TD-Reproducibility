@@ -1,0 +1,17 @@
+{
+  "formal_offchain_rows": 690,
+  "formal_normal_rows": 600,
+  "formal_audit_rows": 90,
+  "formal_chain_tasks": 540,
+  "formal_chain_transactions": 27000,
+  "throughput_bursts": 30,
+  "failed_transactions": 0,
+  "invalid_protocol_runs": 0,
+  "prtd_chain_values_present": 0,
+  "bootstrap_repetitions": 10000,
+  "accountability_trials_per_cell": 100000,
+  "fault_injection_rows": 720,
+  "fault_injection_cells": 24,
+  "challenge_window_ms": 500.0,
+  "status": "PASS"
+}

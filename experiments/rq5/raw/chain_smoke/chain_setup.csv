@@ -1,0 +1,10 @@
+protocol,operation,latency_ms,ledger_bytes,gas_used,block_number,contract_address
+IRPP-TD,contract_deployment,330.327727,2754,53748,6,0x31ed5233b81c79d5adddeef991f531a9bbc2ad01
+BSIF,contract_deployment,527.147912,2632,51283,7,0x6546c3571f17858ea45575e7c6457dad03e53dbb
+RPPS-TDC,contract_deployment,504.280909,3023,59179,8,0xcceef68c9b4811b32c75df284a1396c7c5509561
+BSIF,worker_registration,499.273485,88,7485,9,0x6546c3571f17858ea45575e7c6457dad03e53dbb
+RPPS-TDC,worker_registration,530.264491,88,7485,10,0xcceef68c9b4811b32c75df284a1396c7c5509561
+BSIF,worker_registration,500.541932,88,7485,11,0x6546c3571f17858ea45575e7c6457dad03e53dbb
+RPPS-TDC,worker_registration,503.239557,88,7485,12,0xcceef68c9b4811b32c75df284a1396c7c5509561
+BSIF,worker_registration,500.882001,88,7485,13,0x6546c3571f17858ea45575e7c6457dad03e53dbb
+RPPS-TDC,worker_registration,445.835479,88,7485,14,0xcceef68c9b4811b32c75df284a1396c7c5509561
